@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """PostToolUse hook: record which as-marketing routers, skills and workflows were loaded.
 
-Writes to <project>/.as/state/.as-trail.json. Does nothing in projects without a .as/
-directory, so the plugin stays silent in repositories where it was never started.
+Writes to <data>/state/.as-trail.json, where <data> is the project's AgentSwarm data
+directory (see as_data.py). Does nothing in projects without one, so the plugin stays
+silent in repositories where it was never started.
 Only paths inside this plugin's own root are recorded, so several AgentSwarm plugins
-can share one trail file without mixing entries. Reads of project files outside .as/
+can share one trail file without mixing entries. Reads of project files outside <data>/
 are recorded as kind "source" only once this session has loaded a router or skill.
 
 Never fails loudly: any error exits 0 so tool calls are never blocked.
@@ -19,6 +20,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from as_data import data_dir, project_dir, relative
+
 PLUGIN = "as-marketing"
 MAX_ENTRIES = 80
 
@@ -28,7 +32,6 @@ PATTERNS = [
     ("workflow", re.compile(r"library/workflows/[a-z0-9-]+\.md")),
     ("profile", re.compile(r"library/business-model-profiles\.md")),
 ]
-CONTEXT = re.compile(r"\.as/project-context\.md")
 
 
 def stamp() -> str:
@@ -40,17 +43,18 @@ def targets(payload: dict) -> list[str]:
     return [str(tool_input.get(k)) for k in ("file_path", "command", "pattern", "path") if tool_input.get(k)]
 
 
-def classify(texts: list[str], plugin_root: str) -> list[tuple[str, str]]:
+def classify(texts: list[str], plugin_root: str, data_rel: str) -> list[tuple[str, str]]:
+    context = re.compile(re.escape(f"{data_rel}/project-context.md"))
     found: list[tuple[str, str]] = []
     for text in texts:
         if plugin_root and plugin_root in text:
             for kind, pattern in PATTERNS:
                 found.extend((kind, m.group(0)) for m in pattern.finditer(text))
-        found.extend(("context", m.group(0)) for m in CONTEXT.finditer(text))
+        found.extend(("context", m.group(0)) for m in context.finditer(text))
     return found
 
 
-def source_reads(payload: dict, project: Path) -> list[str]:
+def source_reads(payload: dict, project: Path, data_rel: str) -> list[str]:
     if payload.get("tool_name") not in ("Read", "Grep", "Glob"):
         return []
     tool_input = payload.get("tool_input") or {}
@@ -62,9 +66,10 @@ def source_reads(payload: dict, project: Path) -> list[str]:
         rel = resolved.relative_to(project)
     except Exception:
         return []
-    if rel.parts and rel.parts[0] == ".as":
+    rel_posix = rel.as_posix()
+    if rel_posix == data_rel or rel_posix.startswith(data_rel + "/"):
         return []
-    return [str(rel)]
+    return [rel_posix]
 
 
 def main() -> int:
@@ -73,12 +78,14 @@ def main() -> int:
     except Exception:
         return 0
 
-    project = Path(os.environ.get("CLAUDE_PROJECT_DIR") or payload.get("cwd") or ".").resolve()
-    if not (project / ".as").is_dir():
+    project = project_dir(payload)
+    data = data_dir(project)
+    if data is None or not data.is_dir():
         return 0
+    data_rel = relative(data, project)
 
     plugin_root = os.environ.get("CLAUDE_PLUGIN_ROOT", "")
-    trail_path = project / ".as" / "state" / ".as-trail.json"
+    trail_path = data / "state" / ".as-trail.json"
     session_id = str(payload.get("session_id") or "unknown")
 
     try:
@@ -89,12 +96,12 @@ def main() -> int:
         trail = {"session_id": session_id, "entries": []}
     entries = trail.get("entries") or []
 
-    hits = classify(targets(payload), plugin_root)
+    hits = classify(targets(payload), plugin_root, data_rel)
     active = any(e.get("plugin") == PLUGIN and e.get("kind") in ("router", "skill") for e in entries) or any(
         k in ("router", "skill") for k, _ in hits
     )
     if active:
-        hits.extend(("source", p) for p in source_reads(payload, project))
+        hits.extend(("source", p) for p in source_reads(payload, project, data_rel))
     if not hits:
         return 0
 

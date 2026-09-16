@@ -2,7 +2,7 @@ name: Generic strategy request routes to one owner and durable output
 version: 1
 
 input:
-  project_context: .as/project-context.md
+  project_context: <data_dir>/project-context.md
   request: >-
     Diagnose the primary growth constraint for a capacity-limited business,
     recommend one next mechanism, and define evidence, success metrics,

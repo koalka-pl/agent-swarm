@@ -1,7 +1,7 @@
 as:
   plugin: as-marketing
   name: AgentSwarm Marketing
-  version: 0.3.1
+  version: 0.4.0
   registry: engine/registry.yaml
 
   always_load:
@@ -14,12 +14,13 @@ as:
     - engine/system/tool-integration-contract.md
 
   project:
-    root: .as
-    context: .as/project-context.md
+    pointer: .as.yaml
+    default_data_dir: .as
+    context: project-context.md
     context_section: "## as-marketing"
     profile_library: library/business-model-profiles.md
-    outputs: .as/outputs
-    notes: .as/notes
+    outputs: outputs
+    notes: notes
 
   loading_limits:
     primary_domains: 1
@@ -33,8 +34,8 @@ as:
     audit_schema: engine/schemas/audit-record.schema.json
     approval_schema: engine/schemas/approval.schema.json
     project_template: engine/templates/project-state.yaml
-    project_directory: .as/state/projects
-    audit_directory: .as/state/audit
+    project_directory: state/projects
+    audit_directory: state/audit
     operational_database: required_for_repeating_records
 
   execution:
@@ -51,7 +52,7 @@ as:
 
   source_access:
     default: denied
-    consent_file: .as/access.yaml
+    consent_file: access.yaml
     reader_agent: source-reader
 
   security:

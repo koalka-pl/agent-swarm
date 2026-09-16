@@ -6,8 +6,10 @@ disable-model-invocation: true
 
 Show the full **as-marketing** routing trail for the current session.
 
-1. Read `.as/state/.as-trail.json` (the observed trail, written by a hook). Use only entries with `plugin: as-marketing`. If the file does not exist, say plainly that no router or skill has been loaded in this session yet.
-2. Read the most recent `.as/state/projects/*.yaml` with `plugin: as-marketing` (the declared trail): `project_id`, `selected_router`, `selected_owner_skill`, `loaded_specialists`, `active_workflow`.
+Resolve the data directory `<data>` first: the `data_dir` value from `.as.yaml` at the project root, or `.as` if that file does not exist but `<data>/` does. If neither exists, say that as-marketing has not been started in this project.
+
+1. Read `<data>/state/.as-trail.json` (the observed trail, written by a hook). Use only entries with `plugin: as-marketing`. If the file does not exist, say plainly that no router or skill has been loaded in this session yet.
+2. Read the most recent `<data>/state/projects/*.yaml` with `plugin: as-marketing` (the declared trail): `project_id`, `selected_router`, `selected_owner_skill`, `loaded_specialists`, `active_workflow`.
 3. Read `loading_limits` from `${CLAUDE_PLUGIN_ROOT}/engine/config.yaml`.
 
 Present the result as:

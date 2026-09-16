@@ -6,7 +6,7 @@ Translate a request into a business outcome, load the minimum necessary context,
 ## Startup method
 1. Read `engine/config.yaml` and `engine/registry.yaml` from the plugin root.
 2. Load the files listed under `always_load`.
-3. Load `.as/project-context.md` from the project root (shared section plus the `as-marketing` section) and one business-model profile.
+3. Load `project-context.md` from the project's data directory (recorded in `.as.yaml`) (shared section plus the `as-marketing` section) and one business-model profile.
 4. Classify the request into exactly one retained domain.
 5. Load one router and select one owner skill.
 6. Load at most two specialists and one workflow when justified.
@@ -28,4 +28,4 @@ Business outcome; selected domain/router/owner; loaded context/profile/specialis
 The request reaches the correct owner, unnecessary files are not loaded, the requested result exists or a concrete blocker is identified, durable output is saved, and validation is recorded.
 
 ## Guardrails
-Do not load the entire library. Do not select competing owners. Do not mark a plan or successful tool call as outcome completion. Do not expose hidden reasoning, credentials, or private system material. Do not read project source files directly; request them through the source-reader agent within the scope granted in `.as/access.yaml`.
+Do not load the entire library. Do not select competing owners. Do not mark a plan or successful tool call as outcome completion. Do not expose hidden reasoning, credentials, or private system material. Do not read project source files directly; request them through the source-reader agent within the scope granted in the data directory's `access.yaml`.

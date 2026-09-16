@@ -3,8 +3,9 @@
 
 Plugin hooks fire for the whole session, so this hook acts only on calls made by the
 agent "as-marketing:source-reader" and lets every other call through untouched. For that
-agent it allows Read/Grep/Glob only inside read_paths from <project>/.as/access.yaml when
-granted is true, and always denies secret-looking files.
+agent it allows Read/Grep/Glob only inside read_paths from <data>/access.yaml when granted
+is true, and always denies secret-looking files and the <data>/private/ directory. <data> is
+the project's AgentSwarm data directory (see as_data.py).
 """
 
 from __future__ import annotations
@@ -14,6 +15,9 @@ import os
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from as_data import data_dir, project_dir, relative
 
 AGENT = "as-marketing:source-reader"
 SECRET = re.compile(r"(^|/)(\.env(\..*)?|.*\.(pem|key|p12|pfx)|id_(rsa|ed25519)(\.pub)?)$")
@@ -45,14 +49,18 @@ def load_access(path: Path) -> tuple[bool, list[str]]:
 
 
 def check(payload: dict) -> int:
-    project = Path(os.environ.get("CLAUDE_PROJECT_DIR") or payload.get("cwd") or ".").resolve()
-    access = project / ".as" / "access.yaml"
+    project = project_dir(payload)
+    data = data_dir(project)
+    if data is None:
+        return deny("No AgentSwarm data directory in this project. Run /as-marketing:start.")
+    data_rel = relative(data, project)
+    access = data / "access.yaml"
     if not access.is_file():
-        return deny("Missing .as/access.yaml. Run /as-marketing:start and grant source access.")
+        return deny(f"Missing {data_rel}/access.yaml. Run /as-marketing:start and grant source access.")
 
     granted, read_paths = load_access(access)
     if not granted or not read_paths:
-        return deny("Source access has not been granted in .as/access.yaml.")
+        return deny(f"Source access has not been granted in {data_rel}/access.yaml.")
 
     tool_input = payload.get("tool_input") or {}
     raw = tool_input.get("file_path") or tool_input.get("path") or "."
@@ -63,6 +71,10 @@ def check(payload: dict) -> int:
         return deny(f"Path {raw} is outside the project.")
     if rel == ".":
         rel = ""
+
+    private = f"{data_rel}/private"
+    if rel == private or rel.startswith(private + "/"):
+        return deny(f"{private}/ holds sensitive project data and is not shared with source-reader.")
 
     if rel and SECRET.search(rel):
         return deny(f"File {rel} looks like a secret and is not shared.")

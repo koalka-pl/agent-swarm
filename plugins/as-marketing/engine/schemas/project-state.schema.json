@@ -50,7 +50,8 @@
       ]
     },
     "company_context_path": {
-      "const": ".as/project-context.md"
+      "type": "string",
+      "pattern": "^(?!/)(?!.*\\.\\./)(.+/)?project-context\\.md$"
     },
     "business_model_profile": {
       "type": [

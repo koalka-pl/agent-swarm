@@ -1,12 +1,12 @@
 namespace: AS_MARKETING
-version: 0.3.1
+version: 0.4.0
 
 path_bases:
   package: plugin_root
   project: project_root
 
 # package: resolve against the plugin install directory (${CLAUDE_PLUGIN_ROOT}); read-only.
-# project: resolve against the project directory where Claude Code runs; mutable project data.
+# project: resolve against the project's data directory chosen in /as-marketing:start; mutable project data.
 
 system:
   orchestrator: engine/system/chief-orchestrator.md
@@ -20,15 +20,17 @@ system:
 profiles: library/business-model-profiles.md
 
 project:
-  root: .as
-  context: .as/project-context.md
-  private: .as/private
-  notes: .as/notes
-  outputs: .as/outputs
-  source_access: .as/access.yaml
-  project_state_directory: .as/state/projects
-  audit_directory: .as/state/audit
-  trail: .as/state/.as-trail.json
+  pointer: .as.yaml
+  default_data_dir: .as
+  # Every path below is relative to the data directory recorded in .as.yaml (data_dir).
+  context: project-context.md
+  private: private
+  notes: notes
+  outputs: outputs
+  source_access: access.yaml
+  project_state_directory: state/projects
+  audit_directory: state/audit
+  trail: state/.as-trail.json
 
 routers:
   business_growth: library/routers/business-and-growth-strategy.md

@@ -2,7 +2,7 @@
 
 Schema version: 1
 
-Single source of truth for this project, shared by every installed AgentSwarm plugin. Replace placeholders with verified facts. Mark anything unconfirmed as `unknown`. Each fact lives in exactly one place: shared facts go under Shared, plugin-specific facts under that plugin's section. Sensitive data (finances, contracts, personal data) does not belong here; keep it in `.as/private/`.
+Single source of truth for this project, shared by every installed AgentSwarm plugin. Replace placeholders with verified facts. Mark anything unconfirmed as `unknown`. Each fact lives in exactly one place: shared facts go under Shared, plugin-specific facts under that plugin's section. Sensitive data (finances, contracts, personal data) does not belong here; keep it in the `private/` folder of the data directory.
 
 ## Shared
 
@@ -43,7 +43,7 @@ Single source of truth for this project, shared by every installed AgentSwarm pl
 
 ## as-marketing
 
-Owned by the as-marketing plugin. Other plugins may read it but propose changes in `.as/notes/` instead of editing it.
+Owned by the as-marketing plugin. Other plugins may read it but propose changes in the data directory's `notes/` instead of editing it.
 
 ### Business model
 - Primary business-model profile: [required]

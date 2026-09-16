@@ -15,11 +15,11 @@ engine/      config, registry, policies, schemas, templates, validate.py
 library/     routers, skills (core and full), workflows, business-model profiles
 skills/      start, run, trail commands
 agents/      source-reader
-hooks/       as-trail.py (routing trail), source-guard.py (source consent)
+hooks/       as-trail.py (routing trail), source-guard.py (source consent), as_data.py (data directory)
 tests/smoke/ reference routing scenario
 ```
 
-`engine/registry.yaml` has two path bases: `package`, relative to the plugin directory, and `project`, relative to the project directory.
+`engine/registry.yaml` has two path bases: `package`, relative to the plugin directory, and `project`, relative to the data directory chosen in `/as-marketing:start` and recorded in `.as.yaml`.
 
 ## Scope
 
