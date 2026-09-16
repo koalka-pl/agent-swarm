@@ -1,0 +1,10 @@
+{
+  "name": "as-marketing",
+  "version": "0.3.0",
+  "description": "AgentSwarm marketing and business growth system: registry-driven routing across 9 domains and 100 skills, with a shared project context, evidence guard, approval gates and audit trail.",
+  "author": {
+    "name": "Konrad Kaliciński"
+  },
+  "repository": "https://github.com/koalka-pl/agent-swarm",
+  "keywords": ["marketing", "growth", "strategy", "agent-swarm"]
+}

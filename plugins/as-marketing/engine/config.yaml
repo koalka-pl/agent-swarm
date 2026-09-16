@@ -1,0 +1,73 @@
+as:
+  plugin: as-marketing
+  name: AgentSwarm Marketing
+  version: 0.3.0
+  registry: engine/registry.yaml
+
+  always_load:
+    - engine/system/chief-orchestrator.md
+    - engine/system/execution-policy.md
+    - engine/system/evidence-and-claims-guard.md
+    - engine/system/approval-and-safety-policy.md
+    - engine/system/skill-contract-and-registry-schema.md
+    - engine/system/validation-state-and-audit-policy.md
+    - engine/system/tool-integration-contract.md
+
+  project:
+    root: .as
+    context: .as/project-context.md
+    context_section: "## as-marketing"
+    profile_library: library/business-model-profiles.md
+    outputs: .as/outputs
+    notes: .as/notes
+
+  loading_limits:
+    primary_domains: 1
+    routers: 1
+    owner_skills: 1
+    specialists: 2
+    workflows: 1
+
+  state:
+    project_schema: engine/schemas/project-state.schema.json
+    audit_schema: engine/schemas/audit-record.schema.json
+    approval_schema: engine/schemas/approval.schema.json
+    project_template: engine/templates/project-state.yaml
+    project_directory: .as/state/projects
+    audit_directory: .as/state/audit
+    operational_database: required_for_repeating_records
+
+  execution:
+    fail_closed_on_missing_path: true
+    fail_closed_on_missing_permission: true
+    require_durable_output: true
+    require_validation: true
+    require_evidence_review: true
+
+  approvals:
+    token_enforcement: host_application
+    draft_status: do_review
+    scoped_authorization_only: true
+
+  source_access:
+    default: denied
+    consent_file: .as/access.yaml
+    reader_agent: source-reader
+
+  security:
+    store_credentials_in_repo: false
+    store_chain_of_thought: false
+    allow_unregistered_tools: false
+    allow_unregistered_registry_paths: false
+
+  excluded_domains:
+    - paid_media
+    - website_design_and_development
+
+  tests:
+    smoke_directory: tests/smoke
+    required_after:
+      - registry_change
+      - router_change
+      - owner_skill_change
+      - policy_change

@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-swarm.koalka.pl/schemas/project-state.schema.json",
+  "title": "AgentSwarm Project State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "plugin",
+    "project_id",
+    "workspace_id",
+    "title",
+    "user_goal",
+    "status",
+    "company_context_path",
+    "business_model_profile",
+    "loaded_specialists",
+    "plan",
+    "completed_steps",
+    "open_questions",
+    "assumptions",
+    "blockers",
+    "pending_approvals",
+    "artifacts",
+    "updated_at"
+  ],
+  "properties": {
+    "plugin": {
+      "type": "string",
+      "pattern": "^as-[a-z0-9-]+$"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "user_goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "active",
+        "blocked",
+        "do_review",
+        "approved",
+        "completed",
+        "closed"
+      ]
+    },
+    "company_context_path": {
+      "const": ".as/project-context.md"
+    },
+    "business_model_profile": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "selected_router": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "selected_owner_skill": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "loaded_specialists": {
+      "type": "array",
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "active_workflow": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step_id",
+          "action",
+          "status",
+          "output_ref"
+        ],
+        "properties": {
+          "step_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "active",
+              "blocked",
+              "do_review",
+              "completed",
+              "rejected"
+            ]
+          },
+          "output_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "completed_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pending_approvals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_action": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

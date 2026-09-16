@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-swarm.koalka.pl/schemas/approval.schema.json",
+  "title": "AgentSwarm Scoped Approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "approval_id",
+    "status",
+    "exact_action",
+    "target_system",
+    "content_or_records_affected",
+    "public_or_irreversible_consequences",
+    "unchanged_scope",
+    "requested_at"
+  ],
+  "properties": {
+    "approval_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "required",
+        "approved",
+        "rejected",
+        "expired",
+        "executed"
+      ]
+    },
+    "exact_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_system": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recipient_or_resource": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "content_or_records_affected": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "public_or_irreversible_consequences": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cost": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "unchanged_scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "artifact_for_review": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decided_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "executed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "executed"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "decided_at",
+          "executed_at"
+        ],
+        "properties": {
+          "decided_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "executed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  ]
+}

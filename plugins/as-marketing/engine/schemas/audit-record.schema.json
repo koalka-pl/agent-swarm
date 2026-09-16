@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-swarm.koalka.pl/schemas/audit-record.schema.json",
+  "title": "AgentSwarm Audit Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "plugin",
+    "run_id",
+    "session_id",
+    "project_id",
+    "timestamp",
+    "user_goal",
+    "request_type",
+    "selected_router",
+    "selected_owner_skill",
+    "loaded_specialists",
+    "company_context",
+    "business_model_profile",
+    "tools_used",
+    "artifacts_created",
+    "claims",
+    "assumptions",
+    "approvals",
+    "validation"
+  ],
+  "properties": {
+    "plugin": {
+      "type": "string",
+      "pattern": "^as-[a-z0-9-]+$"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "user_goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "request_type": {
+      "enum": [
+        "advice",
+        "plan_only",
+        "research",
+        "build",
+        "update",
+        "external_action"
+      ]
+    },
+    "selected_router": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selected_owner_skill": {
+      "type": "string",
+      "minLength": 1
+    },
+    "loaded_specialists": {
+      "type": "array",
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "company_context": {
+      "type": "string",
+      "minLength": 1
+    },
+    "business_model_profile": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tools_used": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tool",
+          "action",
+          "read_or_write",
+          "result"
+        ],
+        "properties": {
+          "tool": {
+            "type": "string",
+            "minLength": 1
+          },
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "read_or_write": {
+            "enum": [
+              "read",
+              "write"
+            ]
+          },
+          "target": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "result": {
+            "enum": [
+              "success",
+              "partial",
+              "failed",
+              "blocked"
+            ]
+          }
+        }
+      }
+    },
+    "artifacts_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "records_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "records_updated": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "records_deleted": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accepted",
+        "rewritten",
+        "removed",
+        "unresolved"
+      ],
+      "properties": {
+        "accepted": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rewritten": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "removed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unresolved": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approvals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "granted",
+        "pending"
+      ],
+      "properties": {
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "granted": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pending": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "checks",
+        "unresolved_risks"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "passed",
+            "partial",
+            "failed",
+            "blocked"
+          ]
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unresolved_risks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "next_action": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

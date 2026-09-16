@@ -1,0 +1,183 @@
+namespace: AS_MARKETING
+version: 0.3.0
+
+path_bases:
+  package: plugin_root
+  project: project_root
+
+# package: resolve against the plugin install directory (${CLAUDE_PLUGIN_ROOT}); read-only.
+# project: resolve against the project directory where Claude Code runs; mutable project data.
+
+system:
+  orchestrator: engine/system/chief-orchestrator.md
+  execution_policy: engine/system/execution-policy.md
+  evidence_guard: engine/system/evidence-and-claims-guard.md
+  approval_policy: engine/system/approval-and-safety-policy.md
+  skill_contract: engine/system/skill-contract-and-registry-schema.md
+  validation_policy: engine/system/validation-state-and-audit-policy.md
+  tool_contract: engine/system/tool-integration-contract.md
+
+profiles: library/business-model-profiles.md
+
+project:
+  root: .as
+  context: .as/project-context.md
+  private: .as/private
+  notes: .as/notes
+  outputs: .as/outputs
+  source_access: .as/access.yaml
+  project_state_directory: .as/state/projects
+  audit_directory: .as/state/audit
+  trail: .as/state/.as-trail.json
+
+routers:
+  business_growth: library/routers/business-and-growth-strategy.md
+  market_customer: library/routers/market-and-customer-insight.md
+  positioning_product_marketing: library/routers/positioning-and-product-marketing.md
+  offer_pricing_monetization: library/routers/offer-pricing-and-monetization.md
+  content_seo_aeo: library/routers/content-seo-and-aeo.md
+  acquisition_distribution: library/routers/acquisition-and-distribution.md
+  conversion_experimentation: library/routers/conversion-and-experimentation.md
+  sales_revenue: library/routers/sales-and-revenue.md
+  measurement_operations: library/routers/measurement-and-marketing-operations.md
+
+skills:
+  business_growth:
+    - library/skills/core/business-model-strategist.md
+    - library/skills/core/growth-strategy-architect.md
+    - library/skills/core/growth-constraint-diagnostician.md
+    - library/skills/core/channel-portfolio-prioritizer.md
+    - library/skills/core/growth-loop-designer.md
+    - library/skills/core/founder-dependency-and-scale-auditor.md
+    - library/skills/core/offer-evolution-planner.md
+    - library/skills/core/service-productization-architect.md
+    - library/skills/core/authority-to-revenue-planner.md
+    - library/skills/core/referral-and-proof-loop-designer.md
+    - library/skills/full/business-growth/go-to-market-strategist.md
+    - library/skills/full/business-growth/market-entry-strategist.md
+    - library/skills/full/business-growth/strategic-planning-architect.md
+    - library/skills/full/business-growth/business-case-builder.md
+    - library/skills/full/business-growth/partnership-strategy-designer.md
+    - library/skills/full/business-growth/scenario-and-risk-planner.md
+    - library/skills/full/business-growth/resource-allocation-prioritizer.md
+  market_customer:
+    - library/skills/full/market-customer/icp-and-segmentation-architect.md
+    - library/skills/full/market-customer/jobs-to-be-done-researcher.md
+    - library/skills/full/market-customer/customer-research-and-voc-analyst.md
+    - library/skills/full/market-customer/competitive-intelligence-analyst.md
+    - library/skills/full/market-customer/buying-committee-mapper.md
+    - library/skills/full/market-customer/market-research-strategist.md
+    - library/skills/full/market-customer/trend-and-signal-intelligence-analyst.md
+    - library/skills/full/market-customer/prospect-and-account-researcher.md
+    - library/skills/full/market-customer/market-opportunity-assessor.md
+  positioning_product_marketing:
+    - library/skills/full/positioning/positioning-strategist.md
+    - library/skills/full/positioning/messaging-architect.md
+    - library/skills/full/positioning/value-proposition-designer.md
+    - library/skills/full/positioning/category-design-strategist.md
+    - library/skills/full/positioning/brand-strategy-architect.md
+    - library/skills/full/positioning/product-marketing-strategist.md
+    - library/skills/full/positioning/use-case-strategist.md
+    - library/skills/full/positioning/launch-strategy-planner.md
+    - library/skills/full/positioning/thought-leadership-strategist.md
+    - library/skills/full/positioning/proof-and-credibility-architect.md
+  offer_pricing_monetization:
+    - library/skills/full/offer-pricing/offer-architecture-strategist.md
+    - library/skills/full/offer-pricing/paid-pilot-designer.md
+    - library/skills/full/offer-pricing/pricing-and-packaging-strategist.md
+    - library/skills/full/offer-pricing/unit-economics-analyst.md
+    - library/skills/full/offer-pricing/service-economics-auditor.md
+    - library/skills/full/offer-pricing/monetization-experiment-designer.md
+    - library/skills/full/offer-pricing/scope-and-delivery-risk-analyst.md
+    - library/skills/full/offer-pricing/offer-ladder-designer.md
+  content_seo_aeo:
+    - library/skills/full/content-strategy/content-strategy-architect.md
+    - library/skills/full/content-strategy/editorial-campaign-planner.md
+    - library/skills/full/content-strategy/content-brief-architect.md
+    - library/skills/full/content-strategy/content-repurposing-strategist.md
+    - library/skills/full/content-strategy/seo-strategy-architect.md
+    - library/skills/full/content-strategy/keyword-and-intent-researcher.md
+    - library/skills/full/content-strategy/topic-cluster-architect.md
+    - library/skills/full/content-strategy/on-page-seo-optimizer.md
+    - library/skills/full/content-strategy/aeo-and-ai-visibility-strategist.md
+    - library/skills/full/content-strategy/linkedin-content-strategist.md
+    - library/skills/full/content-strategy/newsletter-and-lifecycle-content-strategist.md
+    - library/skills/full/content-strategy/content-performance-analyst.md
+  acquisition_distribution:
+    - library/skills/full/acquisition-distribution/demand-generation-strategist.md
+    - library/skills/full/acquisition-distribution/lead-generation-strategist.md
+    - library/skills/full/acquisition-distribution/founder-led-outbound-strategist.md
+    - library/skills/full/acquisition-distribution/account-based-marketing-strategist.md
+    - library/skills/full/acquisition-distribution/partner-led-growth-strategist.md
+    - library/skills/full/acquisition-distribution/community-growth-strategist.md
+    - library/skills/full/acquisition-distribution/event-marketing-strategist.md
+    - library/skills/full/acquisition-distribution/referral-program-designer.md
+    - library/skills/full/acquisition-distribution/organic-social-distribution-strategist.md
+  conversion_experimentation:
+    - library/skills/full/conversion-experimentation/conversion-copywriter.md
+    - library/skills/full/conversion-experimentation/website-conversion-architect.md
+    - library/skills/full/conversion-experimentation/marketing-page-cro-auditor.md
+    - library/skills/full/conversion-experimentation/landing-page-strategist.md
+    - library/skills/full/conversion-experimentation/form-optimization-specialist.md
+    - library/skills/full/conversion-experimentation/campaign-message-match-analyst.md
+    - library/skills/full/conversion-experimentation/objection-and-proof-strategist.md
+    - library/skills/full/conversion-experimentation/experiment-design-strategist.md
+    - library/skills/full/conversion-experimentation/ab-test-analyst.md
+  sales_revenue:
+    - library/skills/full/sales-revenue/sales-enablement-strategist.md
+    - library/skills/full/sales-revenue/founder-led-sales-planner.md
+    - library/skills/full/sales-revenue/discovery-and-qualification-architect.md
+    - library/skills/full/sales-revenue/outbound-sequence-designer.md
+    - library/skills/full/sales-revenue/proposal-and-business-case-writer.md
+    - library/skills/full/sales-revenue/pipeline-process-designer.md
+    - library/skills/full/sales-revenue/crm-architecture-strategist.md
+    - library/skills/full/sales-revenue/revenue-operations-architect.md
+    - library/skills/full/sales-revenue/lead-scoring-designer.md
+    - library/skills/full/sales-revenue/lead-routing-designer.md
+    - library/skills/full/sales-revenue/customer-success-strategist.md
+    - library/skills/full/sales-revenue/expansion-and-renewal-planner.md
+    - library/skills/full/sales-revenue/pilot-to-implementation-planner.md
+  measurement_operations:
+    - library/skills/full/measurement-operations/marketing-measurement-architect.md
+    - library/skills/full/measurement-operations/marketing-analytics-analyst.md
+    - library/skills/full/measurement-operations/attribution-strategist.md
+    - library/skills/full/measurement-operations/funnel-analytics-specialist.md
+    - library/skills/full/measurement-operations/visitor-intelligence-analyst.md
+    - library/skills/full/measurement-operations/marketing-roi-analyst.md
+    - library/skills/full/measurement-operations/forecasting-and-scenario-analyst.md
+    - library/skills/full/measurement-operations/tracking-plan-architect.md
+    - library/skills/full/measurement-operations/ga4-and-gtm-measurement-specialist.md
+    - library/skills/full/measurement-operations/utm-governance-designer.md
+    - library/skills/full/measurement-operations/marketing-automation-architect.md
+    - library/skills/full/measurement-operations/integration-workflow-designer.md
+    - library/skills/full/measurement-operations/reporting-and-dashboard-designer.md
+
+workflows:
+  authority_content_sprint: library/workflows/authority-content-sprint.md
+  contact_and_market_signal_radar: library/workflows/contact-and-market-signal-radar.md
+  operational_database_schemas: library/workflows/operational-database-schemas.md
+
+schemas:
+  project_state: engine/schemas/project-state.schema.json
+  audit_record: engine/schemas/audit-record.schema.json
+  approval: engine/schemas/approval.schema.json
+
+templates:
+  project_state: engine/templates/project-state.yaml
+  project_context: engine/templates/project-context.md
+
+tests:
+  generic_strategy_to_execution: tests/smoke/generic-strategy-to-execution.yaml
+
+selection_policy:
+  primary_domains: exactly_one
+  routers: exactly_one
+  owner_skills: exactly_one
+  specialists: zero_to_two
+  workflows: zero_or_one
+  reject_unregistered_paths: true
+
+excluded:
+  domains:
+    - paid_media
+    - website_design_and_development

@@ -1,0 +1,23 @@
+plugin: as-marketing
+project_id: replace-with-stable-id
+workspace_id: replace-with-workspace-id
+title: Replace with project title
+user_goal: Replace with the business outcome
+status: active
+
+company_context_path: .as/project-context.md
+business_model_profile: null
+selected_router: null
+selected_owner_skill: null
+loaded_specialists: []
+active_workflow: null
+
+plan: []
+completed_steps: []
+open_questions: []
+assumptions: []
+blockers: []
+pending_approvals: []
+artifacts: []
+next_action: null
+updated_at: "2026-01-01T00:00:00Z"

@@ -1,0 +1,17 @@
+{
+  "name": "agent-swarm",
+  "owner": {
+    "name": "Konrad Kaliciński"
+  },
+  "metadata": {
+    "description": "AgentSwarm: domain plugins for Claude Code that share one project context in .as/",
+    "version": "0.3.0"
+  },
+  "plugins": [
+    {
+      "name": "as-marketing",
+      "source": "./plugins/as-marketing",
+      "description": "Marketing and business growth: routing, 100 skills, evidence guard, approvals and audit."
+    }
+  ]
+}

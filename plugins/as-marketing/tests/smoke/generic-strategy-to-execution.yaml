@@ -1,0 +1,49 @@
+name: Generic strategy request routes to one owner and durable output
+version: 1
+
+input:
+  project_context: .as/project-context.md
+  request: >-
+    Diagnose the primary growth constraint for a capacity-limited business,
+    recommend one next mechanism, and define evidence, success metrics,
+    failure thresholds, and a durable output.
+
+expected:
+  primary_domain: business_growth
+  router: library/routers/business-and-growth-strategy.md
+  owner_skill: library/skills/core/growth-constraint-diagnostician.md
+  allowed_specialists:
+    - library/skills/core/growth-strategy-architect.md
+    - library/skills/core/channel-portfolio-prioritizer.md
+  maximum_specialists: 2
+  approval_required_before_internal_plan: false
+  approval_required_before_external_action: true
+  durable_output_type: strategy_document
+  required_output_fields:
+    - decision
+    - evidence
+    - assumptions
+    - required_actions
+    - success_metrics
+    - failure_thresholds
+    - saved_output_location
+    - next_routing_decision
+
+must_reject:
+  - inferred demand without evidence
+  - fabricated metrics or benchmarks
+  - external action without approval
+  - chat-only completion without durable output
+  - more than one owner skill
+  - more than two specialists
+  - paid-media owner or route
+  - website-design or development owner or route
+
+pass_when:
+  - every package path resolves from the plugin root and every project path from the project root
+  - routing matches expected values
+  - prohibited domains are absent from active registry
+  - durable output exists
+  - evidence review is recorded
+  - validation status is passed
+  - project state and audit record are updated
