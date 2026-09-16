@@ -7,7 +7,6 @@
   "required": [
     "plugin",
     "project_id",
-    "workspace_id",
     "title",
     "user_goal",
     "status",
@@ -29,10 +28,6 @@
       "pattern": "^as-[a-z0-9-]+$"
     },
     "project_id": {
-      "type": "string",
-      "minLength": 1
-    },
-    "workspace_id": {
       "type": "string",
       "minLength": 1
     },

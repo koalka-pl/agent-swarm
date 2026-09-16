@@ -1,7 +1,7 @@
 as:
   plugin: as-marketing
   name: AgentSwarm Marketing
-  version: 0.3.0
+  version: 0.3.1
   registry: engine/registry.yaml
 
   always_load:

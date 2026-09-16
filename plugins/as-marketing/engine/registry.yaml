@@ -1,5 +1,5 @@
 namespace: AS_MARKETING
-version: 0.3.0
+version: 0.3.1
 
 path_bases:
   package: plugin_root

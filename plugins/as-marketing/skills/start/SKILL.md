@@ -43,7 +43,7 @@ Plugin files (read-only) live in `${CLAUDE_PLUGIN_ROOT}`. Project data lives in 
 
 1. `.as/project-context.md` — confirmed facts, explicit `unknown`, both "Last verified" blocks filled in.
 2. `.as/access.yaml` — from `${CLAUDE_PLUGIN_ROOT}/engine/templates/access.yaml`. With consent: `granted: true`, `granted_by`, `granted_at` (UTC ISO-8601 with `Z`) and `read_paths` as a list of project-relative directories ending with `/`. Without consent keep `granted: false`.
-3. `.as/state/projects/<project-id>.yaml` from `${CLAUDE_PLUGIN_ROOT}/engine/templates/project-state.yaml`, with: `plugin: as-marketing`, `project_id`, `workspace_id`, `title`, `user_goal`, `status: active`, `company_context_path`, `business_model_profile`, `selected_router`, `selected_owner_skill`, `open_questions`, `assumptions`, `next_action`, `updated_at`.
+3. `.as/state/projects/<project-id>.yaml` from `${CLAUDE_PLUGIN_ROOT}/engine/templates/project-state.yaml`, with: `plugin: as-marketing`, `project_id`, `title`, `user_goal`, `status: active`, `company_context_path`, `business_model_profile`, `selected_router`, `selected_owner_skill`, `open_questions`, `assumptions`, `next_action`, `updated_at`.
 4. Existing directories `.as/state/audit/`, `.as/notes/`, `.as/outputs/`, `.as/private/`.
 5. Changes from 6a and 6c, only if consent was given.
 6. Validation: `python3 "${CLAUDE_PLUGIN_ROOT}/engine/validate.py" project-state .as/state/projects/<project-id>.yaml`. If it fails, fix the file and repeat. Report the result.
