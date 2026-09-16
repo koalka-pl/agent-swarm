@@ -1,0 +1,45 @@
+name: Website context audit follows fixed routing and changes nothing outside the data directory
+version: 1
+
+input:
+  project_context: <data_dir>/project-context.md
+  request: website context audit
+  workflow: library/workflows/website-context-audit.md
+
+expected:
+  primary_domain: positioning_product_marketing
+  router: library/routers/positioning-and-product-marketing.md
+  owner_skill: library/skills/full/positioning/messaging-architect.md
+  allowed_specialists:
+    - library/skills/full/positioning/proof-and-credibility-architect.md
+    - library/skills/full/conversion-experimentation/marketing-page-cro-auditor.md
+  maximum_specialists: 2
+  maximum_pages: 8
+  durable_output_type: audit_document
+  required_output_sections:
+    - scope
+    - summary
+    - fact_comparison
+    - content_gaps
+    - claims_and_proof
+    - current_state_ratings
+    - proposed_context_edits
+    - decisions_needed
+    - top_actions
+    - assumptions_and_limits
+
+must_reject:
+  - editing project-context.md during the workflow
+  - editing the website or repository
+  - reading project sources without granted access or outside source-reader
+  - treating site claims as verified facts
+  - claimed conversion impact without a test
+  - visual design or implementation recommendations
+  - crawling beyond the page limit
+
+pass_when:
+  - routing matches expected values
+  - output saved in the data directory outputs folder
+  - contradictions needing a decision appear in open_questions
+  - proposed context edits appear in pending_approvals
+  - project state and audit record validate

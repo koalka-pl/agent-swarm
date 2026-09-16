@@ -34,7 +34,7 @@ The data directory is shared by every AgentSwarm plugin in this project. Changin
    - **Join** — the file exists (e.g. created by another AgentSwarm plugin) but has no `## as-marketing` section. Do not touch `## Shared` beyond filling gaps; append the `## as-marketing` section from the template.
    - **Complete** — the file and the section exist. Ask only about fields still marked `[required]` or `unknown` that block work.
    If `Schema version` in the existing file differs from the template, stop and describe the difference instead of overwriting.
-5. Ask **one round of questions** (max 5–7, grouped): the data directory if it is not resolved yet, then only missing `[required]` fields. Leave `[optional]` and `[known/unknown]` fields for later.
+5. Ask **one round of questions** (max 5–7, grouped): the data directory if it is not resolved yet, the website URL (or that there is none), then only missing `[required]` fields. Leave `[optional]` and `[known/unknown]` fields for later. Do not read the website at this stage; answers come from the user, so they are not anchored by what the site currently says.
 6. Select exactly one profile from `${CLAUDE_PLUGIN_ROOT}/library/business-model-profiles.md`, respecting its "Selection guardrails". Justify it in one sentence and ask for confirmation.
 7. In the same round, ask for three consents, each separately:
    a. **Context import** — append the line `@<data>/project-context.md` to the project's `CLAUDE.md` (create the file if missing). This puts the context into every session and every subagent. If the line is already there, do not add it again.
@@ -42,6 +42,8 @@ The data directory is shared by every AgentSwarm plugin in this project. Changin
    c. **.gitignore** — add `<data>/private/` and `<data>/state/.as-trail.json`.
 8. Write the files (see "Required result").
 9. Finish with a summary.
+10. **Follow-up: website audit.** Only if the context has a website URL, end the reply with one question: whether to audit the website content against the confirmed context now (contradictions, gaps, unsupported claims, current state of content). No answer or "no" means no audit.
+    If the user agrees, run it through the `run` procedure: read `${CLAUDE_PLUGIN_ROOT}/skills/run/SKILL.md` and execute it for the task "website context audit", using the registered workflow `library/workflows/website-context-audit.md` and its fixed routing.
 
 ## Execution rules
 
@@ -62,6 +64,6 @@ The data directory is shared by every AgentSwarm plugin in this project. Changin
 5. Existing directories `<data>/state/audit/`, `<data>/notes/`, `<data>/outputs/`, `<data>/private/`.
 6. Changes from 7a and 7c, only if consent was given.
 7. Validation: `python3 "${CLAUDE_PLUGIN_ROOT}/engine/validate.py" project-state <data>/state/projects/<project-id>.yaml`. If it fails, fix the file and repeat. Report the result.
-8. Summary in the reply: (a) data directory, (b) context in 5–8 bullets, (c) open questions and `unknown` fields, (d) consents granted and not granted, (e) recommended first area of work with a concrete next step in the form `/as-marketing:run <task>`.
+8. Summary in the reply: (a) data directory, (b) context in 5–8 bullets, (c) open questions and `unknown` fields, (d) consents granted and not granted, (e) recommended first area of work with a concrete next step in the form `/as-marketing:run <task>`, (f) the website audit question from step 10, if applicable.
 
 Do not mark the work complete until the files exist on disk and validation passes.

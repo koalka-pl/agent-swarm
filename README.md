@@ -6,7 +6,7 @@ A Claude Code plugin marketplace whose plugins share one project context. Each p
 
 | Plugin | Domain | Version |
 |---|---|---|
-| `as-marketing` | marketing and business growth: 9 routers, 100 skills, 3 workflows | 0.4.0 |
+| `as-marketing` | marketing and business growth: 9 routers, 100 skills, 4 workflows | 0.5.0 |
 
 ## Installation
 

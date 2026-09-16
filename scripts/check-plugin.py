@@ -117,6 +117,18 @@ def main(argv: list[str]) -> int:
                 if target and target not in skills:
                     warnings.append(f"{rel}: 'Routes to' name not registered: {target}")
 
+    references = sorted((plugin / "library" / "workflows").glob("*.md")) + sorted((plugin / "skills").glob("*/SKILL.md"))
+    for doc in references:
+        text = doc.read_text(encoding="utf-8")
+        for ref in sorted(set(re.findall(r"library/[a-z0-9/-]+\.md", text))):
+            if ref not in registered:
+                errors.append(f"{doc.relative_to(plugin).as_posix()}: references unregistered path {ref}")
+        block = re.search(r"(?ms)^## Fixed routing\n(.*?)(?=^## |\Z)", text)
+        if block:
+            for name, ref in re.findall(r"(?m)^- (?:Owner skill|Specialist): (.+?) — `(library/[^`]+)`", block.group(1)):
+                if h1(plugin / ref) != name:
+                    errors.append(f"{doc.relative_to(plugin).as_posix()}: fixed routing name '{name}' does not match H1 of {ref}")
+
     print(f"plugin: {plugin.name}")
     print(f"registry paths: {len(package_paths)}, skills: {sum(len(v) for v in skills.values())}, router routes: {routes}")
     for w in warnings:

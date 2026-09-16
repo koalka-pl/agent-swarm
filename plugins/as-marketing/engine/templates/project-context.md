@@ -9,6 +9,7 @@ Single source of truth for this project, shared by every installed AgentSwarm pl
 ### Identity
 - Project/company: [required]
 - Product, service, or venture: [required]
+- Website: [required — URL, or none]
 - Geography: [optional]
 - Stage: [required]
 

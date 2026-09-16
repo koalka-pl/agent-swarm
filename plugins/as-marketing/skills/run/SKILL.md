@@ -24,6 +24,7 @@ Resolve `<data>`: the `data_dir` value from `.as.yaml` at the project root; if t
 
 ## Routing
 
+0. If the task names a registered workflow that has a "Fixed routing" section (e.g. "website context audit" → `library/workflows/website-context-audit.md`), load that workflow and use its domain, router, owner and specialists exactly. Skip steps 1–4 and still apply steps 5–6.
 1. Classify the task into **exactly one** domain from `routers` in the registry.
 2. Load **one** router. Select the owner from its "Routing" and "Selection rules" sections.
 3. The router gives the skill's display name. Resolve it by H1 heading: `grep -rlx "# <Name>" "${CLAUDE_PLUGIN_ROOT}/library/skills"`. There must be exactly one result and it must be listed under `skills` in the registry. No match or more than one = stop (fail closed), do not guess.
