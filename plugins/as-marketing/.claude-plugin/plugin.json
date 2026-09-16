@@ -1,6 +1,6 @@
 {
   "name": "as-marketing",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "AgentSwarm marketing and business growth system: registry-driven routing across 9 domains and 100 skills, with a shared project context, evidence guard, approval gates and audit trail.",
   "author": {
     "name": "Konrad Kaliciński"

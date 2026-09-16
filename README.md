@@ -6,7 +6,7 @@ A Claude Code plugin marketplace whose plugins share one project context. Each p
 
 | Plugin | Domain | Version |
 |---|---|---|
-| `as-marketing` | marketing and business growth: 9 routers, 100 skills, 4 workflows | 0.5.0 |
+| `as-marketing` | marketing and business growth: 9 routers, 100 skills, 4 workflows | 0.5.1 |
 
 ## Installation
 
@@ -32,6 +32,7 @@ Project data layout:
 ```
 .as.yaml               data_dir: <data directory>, shared by all AgentSwarm plugins
 <data directory>/
+  README.md            explains this layout to anyone who opens the directory
   project-context.md   shared context: Shared section + one section per plugin
   access.yaml          consent to read project sources and its scope
   private/             sensitive data, never imported into context or shown to source-reader

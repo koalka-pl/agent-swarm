@@ -62,8 +62,9 @@ The data directory is shared by every AgentSwarm plugin in this project. Changin
 3. `<data>/access.yaml` — from `${CLAUDE_PLUGIN_ROOT}/engine/templates/access.yaml`. With consent: `granted: true`, `granted_by`, `granted_at` (UTC ISO-8601 with `Z`) and `read_paths` as a list of project-relative directories ending with `/`. Without consent keep `granted: false`.
 4. `<data>/state/projects/<project-id>.yaml` from `${CLAUDE_PLUGIN_ROOT}/engine/templates/project-state.yaml`, with: `plugin: as-marketing`, `project_id`, `title`, `user_goal`, `status: active`, `company_context_path: <data>/project-context.md`, `business_model_profile`, `selected_router`, `selected_owner_skill`, `open_questions`, `assumptions`, `next_action`, `updated_at`.
 5. Existing directories `<data>/state/audit/`, `<data>/notes/`, `<data>/outputs/`, `<data>/private/`.
-6. Changes from 7a and 7c, only if consent was given.
-7. Validation: `python3 "${CLAUDE_PLUGIN_ROOT}/engine/validate.py" project-state <data>/state/projects/<project-id>.yaml`. If it fails, fix the file and repeat. Report the result.
-8. Summary in the reply: (a) data directory, (b) context in 5–8 bullets, (c) open questions and `unknown` fields, (d) consents granted and not granted, (e) recommended first area of work with a concrete next step in the form `/as-marketing:run <task>`, (f) the website audit question from step 10, if applicable.
+6. `<data>/README.md` from `${CLAUDE_PLUGIN_ROOT}/engine/templates/data-readme.md`, explaining the directory to people who open it. Write it if it does not exist. If it exists and its first line is `<!-- agent-swarm:data-readme v…` with an older version, replace it. If it exists without that marker, it is the user's own file: do not overwrite it, ask whether to write the AgentSwarm README as `<data>/AGENTSWARM.md` instead.
+7. Changes from 7a and 7c, only if consent was given.
+8. Validation: `python3 "${CLAUDE_PLUGIN_ROOT}/engine/validate.py" project-state <data>/state/projects/<project-id>.yaml`. If it fails, fix the file and repeat. Report the result.
+9. Summary in the reply: (a) data directory, (b) context in 5–8 bullets, (c) open questions and `unknown` fields, (d) consents granted and not granted, (e) recommended first area of work with a concrete next step in the form `/as-marketing:run <task>`, (f) the website audit question from step 10, if applicable.
 
 Do not mark the work complete until the files exist on disk and validation passes.

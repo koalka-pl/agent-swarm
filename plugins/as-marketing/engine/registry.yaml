@@ -1,5 +1,5 @@
 namespace: AS_MARKETING
-version: 0.5.0
+version: 0.5.1
 
 path_bases:
   package: plugin_root
@@ -24,6 +24,7 @@ project:
   default_data_dir: .as
   # Every path below is relative to the data directory recorded in .as.yaml (data_dir).
   context: project-context.md
+  readme: README.md
   private: private
   notes: notes
   outputs: outputs
@@ -168,6 +169,8 @@ schemas:
 templates:
   project_state: engine/templates/project-state.yaml
   project_context: engine/templates/project-context.md
+  data_readme: engine/templates/data-readme.md
+  access: engine/templates/access.yaml
 
 tests:
   generic_strategy_to_execution: tests/smoke/generic-strategy-to-execution.yaml
