@@ -1,29 +1,29 @@
 ---
 name: trail
-description: Pokazuje ślad routingu AgentSwarm Marketing — zadeklarowany łańcuch kontra to, co faktycznie zostało wczytane w tej sesji.
+description: Shows the AgentSwarm Marketing routing trail — the declared chain versus what was actually loaded in this session.
 disable-model-invocation: true
 ---
 
-Pokaż pełny ślad routingu **as-marketing** dla bieżącej sesji.
+Show the full **as-marketing** routing trail for the current session.
 
-1. Odczytaj `.as/state/.as-trail.json` (ślad obserwowany, zapisywany przez hook). Uwzględnij tylko wpisy z `plugin: as-marketing`. Jeśli plik nie istnieje, powiedz wprost, że w tej sesji nie wczytano jeszcze żadnego routera ani skilla.
-2. Odczytaj najnowszy plik `.as/state/projects/*.yaml` z `plugin: as-marketing` (ślad zadeklarowany): `project_id`, `selected_router`, `selected_owner_skill`, `loaded_specialists`, `active_workflow`.
-3. Odczytaj `loading_limits` z `${CLAUDE_PLUGIN_ROOT}/engine/config.yaml`.
+1. Read `.as/state/.as-trail.json` (the observed trail, written by a hook). Use only entries with `plugin: as-marketing`. If the file does not exist, say plainly that no router or skill has been loaded in this session yet.
+2. Read the most recent `.as/state/projects/*.yaml` with `plugin: as-marketing` (the declared trail): `project_id`, `selected_router`, `selected_owner_skill`, `loaded_specialists`, `active_workflow`.
+3. Read `loading_limits` from `${CLAUDE_PLUGIN_ROOT}/engine/config.yaml`.
 
-Przedstaw wynik jako:
+Present the result as:
 
-**Zadeklarowany łańcuch** — `<project-id> > <router> > <owner skill> > <specjaliści> > <workflow>`. Pola puste oznacz jako `—`.
+**Declared chain** — `<project-id> > <router> > <owner skill> > <specialists> > <workflow>`. Mark empty fields as `—`.
 
-**Obserwowany łańcuch** — wpisy ze śladu w kolejności wczytania, pogrupowane po `kind` (router / skill / workflow / profile / context / source), ze znacznikami czasu.
+**Observed chain** — trail entries in load order, grouped by `kind` (router / skill / workflow / profile / context / source), with timestamps.
 
-**Rozbieżności** — każda osobno:
-- router wczytany, ale inny niż `selected_router`
-- więcej niż jeden router wczytany w sesji
-- skill wczytany, ale nieobecny w `selected_owner_skill` ani `loaded_specialists`
-- liczba specjalistów ponad `loading_limits.specialists`
-- `selected_owner_skill` zadeklarowany, ale nigdy nie wczytany
-- odczyt źródeł projektu (`kind: source`) poza agentem `source-reader`
+**Divergences** — each one separately:
+- a router was loaded but differs from `selected_router`
+- more than one router loaded in the session
+- a skill was loaded but is neither `selected_owner_skill` nor in `loaded_specialists`
+- more specialists than `loading_limits.specialists`
+- `selected_owner_skill` declared but never loaded
+- project sources read (`kind: source`) outside the `source-reader` agent
 
-Jeśli rozbieżności nie ma, napisz jedno zdanie, że łańcuch jest spójny.
+If there are no divergences, say in one sentence that the chain is consistent.
 
-Nie naprawiaj niczego i nie modyfikuj stanu. To komenda diagnostyczna: wyjściem jest raport i, przy rozbieżnościach, rekomendacja poprawki do zatwierdzenia.
+Do not fix anything and do not modify state. This is a diagnostic command: its output is a report and, when there are divergences, a recommended fix for approval.

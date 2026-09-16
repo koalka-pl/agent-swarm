@@ -48,11 +48,11 @@ def check(payload: dict) -> int:
     project = Path(os.environ.get("CLAUDE_PROJECT_DIR") or payload.get("cwd") or ".").resolve()
     access = project / ".as" / "access.yaml"
     if not access.is_file():
-        return deny("Brak .as/access.yaml. Uruchom /as-marketing:start i udziel zgody na dostęp do źródeł.")
+        return deny("Missing .as/access.yaml. Run /as-marketing:start and grant source access.")
 
     granted, read_paths = load_access(access)
     if not granted or not read_paths:
-        return deny("Dostęp do źródeł projektu nie został udzielony w .as/access.yaml.")
+        return deny("Source access has not been granted in .as/access.yaml.")
 
     tool_input = payload.get("tool_input") or {}
     raw = tool_input.get("file_path") or tool_input.get("path") or "."
@@ -60,12 +60,12 @@ def check(payload: dict) -> int:
     try:
         rel = target.relative_to(project).as_posix()
     except ValueError:
-        return deny(f"Ścieżka {raw} leży poza projektem.")
+        return deny(f"Path {raw} is outside the project.")
     if rel == ".":
         rel = ""
 
     if rel and SECRET.search(rel):
-        return deny(f"Plik {rel} wygląda na sekret i nie jest udostępniany.")
+        return deny(f"File {rel} looks like a secret and is not shared.")
 
     for allowed in read_paths:
         base = allowed.strip().strip("/")
@@ -73,7 +73,7 @@ def check(payload: dict) -> int:
             return 0
         if rel == base or rel.startswith(base + "/"):
             return 0
-    return deny(f"Ścieżka {rel or '.'} jest poza zakresem zgody: {', '.join(read_paths)}.")
+    return deny(f"Path {rel or '.'} is outside the granted scope: {', '.join(read_paths)}.")
 
 
 def main() -> int:

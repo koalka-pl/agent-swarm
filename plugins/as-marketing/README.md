@@ -1,32 +1,32 @@
 # as-marketing
 
-AgentSwarm Marketing: system routingu dla marketingu i wzrostu biznesu.
+AgentSwarm Marketing: a routing system for marketing and business growth.
 
-## Komendy
+## Commands
 
-- `/as-marketing:start [project-id]` — inicjalizacja w projekcie
-- `/as-marketing:run <zadanie>` — wykonanie zadania przez routing
-- `/as-marketing:trail` — diagnostyka routingu
+- `/as-marketing:start [project-id]` — initialize in a project
+- `/as-marketing:run <task>` — execute a task through routing
+- `/as-marketing:trail` — routing diagnostics
 
-## Struktura
+## Structure
 
 ```
-engine/      config, registry, polityki, schematy, szablony, validate.py
-library/     routery, skille (core i full), workflow, profile modeli biznesowych
-skills/      komendy start, run, trail
+engine/      config, registry, policies, schemas, templates, validate.py
+library/     routers, skills (core and full), workflows, business-model profiles
+skills/      start, run, trail commands
 agents/      source-reader
-hooks/       as-trail.py (ślad routingu), source-guard.py (zgoda na źródła)
-tests/smoke/ scenariusz referencyjny routingu
+hooks/       as-trail.py (routing trail), source-guard.py (source consent)
+tests/smoke/ reference routing scenario
 ```
 
-`engine/registry.yaml` ma dwie bazy ścieżek: `package` względem katalogu pluginu i `project` względem katalogu projektu.
+`engine/registry.yaml` has two path bases: `package`, relative to the plugin directory, and `project`, relative to the project directory.
 
-## Zakres
+## Scope
 
-Dziewięć domen: Business & Growth, Market & Customer Insight, Positioning & Product Marketing, Offer/Pricing/Monetization, Content/SEO/AEO, Acquisition & Distribution, Conversion & Experimentation, Sales & Revenue, Measurement & Marketing Operations.
+Nine domains: Business & Growth, Market & Customer Insight, Positioning & Product Marketing, Offer/Pricing/Monetization, Content/SEO/AEO, Acquisition & Distribution, Conversion & Experimentation, Sales & Revenue, Measurement & Marketing Operations.
 
-Poza zakresem: planowanie i prowadzenie płatnych kampanii oraz projektowanie i budowa stron.
+Out of scope: paid media planning and execution, and website design and development.
 
-## Wymagania
+## Requirements
 
-Python 3 (tylko biblioteka standardowa) do hooków i walidacji.
+Python 3 (standard library only) for hooks and validation.
