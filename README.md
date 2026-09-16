@@ -59,3 +59,7 @@ claude plugin validate .
 ```
 
 `check-plugin.py` verifies that every registry path exists, every library file is registered, and every router route resolves to exactly one skill. Run it after any change to a router, skill, registry or policy.
+
+## License
+
+Proprietary commercial software. Use requires a license from the copyright holder; access to this repository does not grant any right to use the plugins. See [LICENSE](LICENSE).

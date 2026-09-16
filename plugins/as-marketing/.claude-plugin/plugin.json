@@ -6,5 +6,11 @@
     "name": "Konrad Kaliciński"
   },
   "repository": "https://github.com/koalka-pl/agent-swarm",
-  "keywords": ["marketing", "growth", "strategy", "agent-swarm"]
+  "license": "LicenseRef-AgentSwarm-Proprietary",
+  "keywords": [
+    "marketing",
+    "growth",
+    "strategy",
+    "agent-swarm"
+  ]
 }

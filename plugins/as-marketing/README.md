@@ -30,3 +30,7 @@ Out of scope: paid media planning and execution, and website design and developm
 ## Requirements
 
 Python 3 (standard library only) for hooks and validation.
+
+## License
+
+Proprietary commercial software. See [LICENSE](LICENSE).

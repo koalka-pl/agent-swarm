@@ -1,0 +1,69 @@
+AgentSwarm Proprietary Commercial License
+
+Copyright (c) 2026 Konrad Kaliciński. All rights reserved.
+
+1. Definitions
+
+"Software" means the contents of this repository, including every plugin, skill, router, workflow, policy, schema, template, script, hook and documentation file, in source or any other form, and any updates provided by the Licensor.
+
+"Licensor" means the copyright holder named above.
+
+"Licensee" means the individual or legal entity that has obtained a valid commercial license for the Software from the Licensor.
+
+"License Agreement" means the order, invoice, subscription or written agreement under which the Licensee obtained the license, including its scope (plugins, number of users, term).
+
+2. No license without a License Agreement
+
+The Software is licensed, not sold. Access to this repository, whether public or private, does not grant any right to install, use, copy, modify or distribute the Software. Any use requires a valid License Agreement with the Licensor. Without one, all rights are reserved.
+
+3. License grant
+
+Subject to the License Agreement and to this license, the Licensor grants the Licensee a non-exclusive, non-transferable, non-sublicensable license, for the term and scope stated in the License Agreement, to:
+
+a) install and use the Software for the Licensee's own business purposes and for services the Licensee provides to its clients;
+
+b) modify the Software for the Licensee's own internal use.
+
+If the License Agreement does not state a number of users, the license covers one named user.
+
+4. Restrictions
+
+The Licensee may not, except as expressly permitted in the License Agreement:
+
+a) copy, publish, redistribute, sell, rent, lease or sublicense the Software or any part of it, in original or modified form;
+
+b) publish the Software or any part of it in a plugin marketplace, repository, package registry or other distribution channel;
+
+c) provide the Software, or a product substantially based on it, to third parties as a product or hosted service;
+
+d) remove or alter copyright notices or this license;
+
+e) use the Software to build a competing collection of skills, routers, workflows or plugins.
+
+5. Outputs
+
+Documents, plans and other results that the Licensee produces with the Software for its own business or its clients belong to the Licensee. This does not transfer any right in the Software itself, and outputs may not reproduce substantial parts of the Software.
+
+6. Ownership
+
+The Licensor retains all right, title and interest in the Software, including all modifications made by or for the Licensor. Modifications made by the Licensee remain subject to this license.
+
+7. Termination
+
+The license ends at the end of the term stated in the License Agreement, or automatically if the Licensee breaches this license and does not cure the breach within 14 days of notice. On termination the Licensee must stop using the Software and delete all copies, including modified copies. Sections 4, 5, 6, 8, 9 and 10 survive termination.
+
+8. No warranty
+
+The Software is provided "as is", without warranty of any kind, express or implied, including warranties of merchantability, fitness for a particular purpose and non-infringement. The Software produces recommendations and drafts; the Licensee is responsible for reviewing them and for any decision or action taken on their basis.
+
+9. Limitation of liability
+
+To the maximum extent permitted by law, the Licensor is not liable for any indirect, incidental, special or consequential damages, lost profits, lost data or business interruption arising from the Software. The Licensor's total liability is limited to the fees paid by the Licensee for the Software in the 12 months before the claim.
+
+10. Governing law
+
+This license is governed by the laws of Poland. Disputes will be resolved by the court competent for the Licensor's registered place of business, unless mandatory law provides otherwise.
+
+11. Licensing
+
+To obtain a license, contact the Licensor through https://github.com/koalka-pl.
